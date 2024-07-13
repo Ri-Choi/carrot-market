@@ -1,14 +1,16 @@
 "use client";
 
 import React from "react";
-import FormButton from "@/components/form-btn";
-import FormInput from "@/components/form-input";
+
 import SocialLogin from "@/components/social-login";
 import { useFormState } from "react-dom";
-import handleForm from "./action";
+import Input from "@/components/input";
+import Button from "@/components/button";
+import { PASSWORD_MIN_LENGTH } from "@/lib/constants";
+import login from "./action";
 
 const LogIn = () => {
-  const [state, action] = useFormState(handleForm, null);
+  const [state, dispatch] = useFormState(login, null); //state = action의 return value
 
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
@@ -16,22 +18,23 @@ const LogIn = () => {
         <h1 className="text-2xl">안녕하세요!</h1>
         <h2 className="text-xl">Log in with email and password.</h2>
       </div>
-      <form action={action} className="flex flex-col gap-3">
-        <FormInput
+      <form action={dispatch} className="flex flex-col gap-3">
+        <Input
           type="email"
           name="email"
           placeholder="Email"
           required
-          errors={[]}
+          errors={state?.fieldErrors.email}
         />
-        <FormInput
+        <Input
           type="password"
           name="password"
           placeholder="Password"
           required
-          errors={state?.errors ?? []}
+          minLength={PASSWORD_MIN_LENGTH}
+          errors={state?.fieldErrors.password}
         />
-        <FormButton text="Create Account" />
+        <Button text="Login" />
       </form>
       <SocialLogin />
     </div>
