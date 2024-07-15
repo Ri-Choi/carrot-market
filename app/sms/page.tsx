@@ -29,6 +29,7 @@ const SMSLogin = () => {
             required
             min={100000} //length가 아닌 number 제한
             max={999999}
+            errors={state.error?.formErrors}
           />
         ) : (
           <Input
