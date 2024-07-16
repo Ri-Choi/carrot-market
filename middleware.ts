@@ -8,8 +8,10 @@ interface Routes {
 const publicOnlyUrls: Routes = {
   "/": true,
   "/login": true,
-  "/create_account": true,
+  "/create-account": true,
   "/sms": true,
+  "/github/start": true,
+  "/github/complete": true,
 };
 
 export default async function middleware(request: NextRequest) {
@@ -30,5 +32,5 @@ export default async function middleware(request: NextRequest) {
 export const config = {
   //미들웨어를 실행하고 싶은 path를 입력하거나 미들웨어를 실행하기 싫은 URL을 필터링 할 정규식을 입력
   // matcher: ["/", "/profile", "/create-account", "/user/:path*"],
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

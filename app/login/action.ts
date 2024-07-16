@@ -5,7 +5,7 @@ import {
   PASSWORD_REGEX_ERROR,
 } from "@/lib/constants";
 import db from "@/lib/db";
-import getSession from "@/lib/session";
+import loginUser from "@/lib/login";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -66,10 +66,7 @@ const login = async (preState: any, formData: FormData) => {
 
     //3. 로그인
     if (ok) {
-      const session = await getSession();
-      session.id = user!.id;
-      await session.save();
-
+      await loginUser(user!.id);
       redirect("profile");
     } else {
       return {

@@ -5,7 +5,7 @@ import {
   PASSWORD_REGEX_ERROR,
 } from "@/lib/constants";
 import db from "@/lib/db";
-import getSession from "@/lib/session";
+import loginUser from "@/lib/login";
 import { hash } from "bcrypt";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -132,11 +132,7 @@ const createAccount = async (preState: any, formData: FormData) => {
     });
 
     //3. 로그인 -> 사용자에게 쿠키를 주는 것
-    const session = await getSession();
-
-    session.id = user.id;
-    await session.save();
-
+    await loginUser(user.id);
     redirect("/profile");
   }
 };
