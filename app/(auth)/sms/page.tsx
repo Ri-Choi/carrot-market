@@ -34,7 +34,7 @@ const SMSLogin = () => {
         ) : (
           <Input
             name="phone"
-            type="text" //
+            type="text"
             placeholder="Phone number"
             required
             errors={state.error?.formErrors}
